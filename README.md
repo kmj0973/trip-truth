@@ -15,7 +15,7 @@
 ![Axios](https://img.shields.io/badge/Axios-5A29E4?style=flat-square&logo=axios&logoColor=white)
 ![PWA](https://img.shields.io/badge/PWA-5A0FC8?style=flat-square&logo=pwa&logoColor=white)
 
-**[배포 링크](<!-- TODO: 배포 URL -->)** · 2026.05.12 ~ 2026.05.29 · 멋쟁이사자처럼 부기톤
+2026.05.12 ~ 2026.05.29 · 멋쟁이사자처럼 부기톤
 
 ---
 
