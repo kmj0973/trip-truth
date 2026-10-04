@@ -1,4 +1,4 @@
-<img width="1920" height="1080" alt="1 표지" src="https://github.com/user-attachments/assets/dc508dd4-d666-4261-a2d5-1d12b19841a3" />
+<img width="1920" height="1080" alt="trip truth 표지" src="https://github.com/user-attachments/assets/dc508dd4-d666-4261-a2d5-1d12b19841a3" />
 
 # Trip Truth
 
@@ -107,14 +107,15 @@ GATHERING(설문 수집) → ANALYZING(분석 중) → VOTING(투표 중) → CO
 ### 1. 비용이 큰 분석 요청이 중복 전송되던 문제
 
 **문제**
-분석 화면에 진입하면 그룹장이 AI 분석 시작 요청(`POST /analyze`)을 보냅니다.
-그런데 이 요청이 한 번이 아니라 여러 번 전송되는 현상이 있었습니다.
-개발 모드의 `StrictMode`는 effect를 두 번 실행하고, effect의 의존성이 바뀔 때도 다시 실행되기 때문입니다.
-AI 분석은 서버 비용이 가장 큰 요청이라, 중복 전송은 그대로 비용 낭비로 이어집니다.
+분석 화면에 진입하면 AI 분석 시작 요청(`POST /analyze`)을 보내는데,
+요청 주체를 구분하지 않아 화면에 들어온 그룹원 전원이 각자 요청을 보내고 있었습니다.
+4명 그룹이라면 같은 분석이 4번 요청되는 셈이고, AI 분석은 서버 비용이 가장 큰 요청이었습니다.
+개발 모드에서는 StrictMode가 effect를 두 번 실행해 요청이 더 늘어났습니다.
 
 **해결**
-`useRef`로 요청 시작 여부를 기록해, effect가 몇 번 실행되든 분석 요청은 한 번만 보내도록 했습니다.
-또한 그룹장(`LEADER`)만 요청을 보내도록 조건을 두어, 그룹원이 동시에 화면에 들어와도 요청이 겹치지 않게 했습니다.
+분석 요청은 그룹장(`LEADER`)만 보내고, 그룹원은 상태 조회만 하도록 역할을 나눴습니다.
+여기에 `useRef`로 요청 시작 여부를 기록해, effect가 다시 실행되더라도 요청은 한 번만 나가도록 했습니다.
+그 결과 그룹 인원과 관계없이 분석 요청은 그룹당 1회로 고정되었습니다.
 
 ```js
 const hasStartedAnalysisRef = useRef(false);
