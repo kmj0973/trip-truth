@@ -1,3 +1,5 @@
+<img width="1920" height="1080" alt="1 표지" src="https://github.com/user-attachments/assets/dc508dd4-d666-4261-a2d5-1d12b19841a3" />
+
 # Trip Truth
 
 **각자의 취향을, 하나의 여행으로**
